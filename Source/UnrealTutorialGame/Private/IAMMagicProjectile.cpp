@@ -13,6 +13,8 @@ AIAMMagicProjectile::AIAMMagicProjectile()
 	PrimaryActorTick.bCanEverTick = true;
 
 	SphereComp = CreateDefaultSubobject<USphereComponent>("SphereComp");
+	// SphereComp->SetCollisionObjectType(ECC_WorldDynamic);
+	SphereComp->SetCollisionProfileName("Projectile");
 	RootComponent = SphereComp;
 
 	EffectComp = CreateDefaultSubobject<UParticleSystemComponent>("EffectComp");
