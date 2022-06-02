@@ -48,6 +48,8 @@ void AIAMCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
+
+	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &AIAMCharacter::PrimaryAttack);
 }
 
 void AIAMCharacter::MoveForward(float AxisValue)
@@ -70,4 +72,15 @@ void AIAMCharacter::MoveRight(float AxisValue)
 	FVector RightVector = FRotationMatrix(rot).GetScaledAxis(EAxis::Y);
 
 	AddMovementInput(RightVector, AxisValue);
+}
+
+void AIAMCharacter::PrimaryAttack()
+{
+	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
+
+	FTransform SpawnTM{ GetControlRotation(), HandLocation };
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 }
