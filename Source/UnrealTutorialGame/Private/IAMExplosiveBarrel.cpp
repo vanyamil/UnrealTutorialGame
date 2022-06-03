@@ -14,9 +14,10 @@ AIAMExplosiveBarrel::AIAMExplosiveBarrel()
 
 	ForceComp = CreateDefaultSubobject<URadialForceComponent>("ForceComp");
 	ForceComp->SetupAttachment(MeshComp);
-	ForceComp->ForceStrength = 200000.f;
-	ForceComp->Radius = 4000.f;
-	ForceComp->DestructibleDamage = 500.f;
+	ForceComp->ForceStrength = 2500.f;
+	ForceComp->Radius = 750.f;
+	// ForceComp->DestructibleDamage = 500.f;
+	ForceComp->bImpulseVelChange = true;
 
 	MeshComp->SetSimulatePhysics(true);
 }
