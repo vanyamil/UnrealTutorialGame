@@ -8,17 +8,15 @@
 // Sets default values
 AIAMExplosiveBarrel::AIAMExplosiveBarrel()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
 	// Assign mesh itself in BP because it's an asset
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>("MeshComp");
 	RootComponent = MeshComp;
 
 	ForceComp = CreateDefaultSubobject<URadialForceComponent>("ForceComp");
 	ForceComp->SetupAttachment(MeshComp);
-	ForceComp->ForceStrength = 2000.f;
-	ForceComp->Radius = 400.f;
+	ForceComp->ForceStrength = 200000.f;
+	ForceComp->Radius = 4000.f;
+	ForceComp->DestructibleDamage = 500.f;
 
 	MeshComp->SetSimulatePhysics(true);
 }
@@ -28,12 +26,11 @@ void AIAMExplosiveBarrel::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	MeshComp->OnComponentHit.AddDynamic(this, &AIAMExplosiveBarrel::OnHit);
 }
 
-// Called every frame
-void AIAMExplosiveBarrel::Tick(float DeltaTime)
+void AIAMExplosiveBarrel::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	Super::Tick(DeltaTime);
-
+	ForceComp->FireImpulse();
 }
 
