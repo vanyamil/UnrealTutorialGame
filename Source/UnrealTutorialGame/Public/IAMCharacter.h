@@ -9,6 +9,7 @@
 class UCameraComponent;
 class USpringArmComponent;
 class UIAMInteractionComponent;
+class UAnimMontage;
 
 UCLASS()
 class UNREALTUTORIALGAME_API AIAMCharacter : public ACharacter
@@ -20,8 +21,11 @@ public:
 	AIAMCharacter();
 
 protected:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Attack")
 	TSubclassOf<AActor> ProjectileClass;
+
+	UPROPERTY(EditAnywhere, Category = "Attack")
+	UAnimMontage* AttackAnim;
 
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComp;
@@ -32,12 +36,15 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	UIAMInteractionComponent* InteractionComp;
 
+	FTimerHandle TimerHandle_PrimaryAttack;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	void MoveForward(float AxisValue);
 	void MoveRight(float AxisValue);
 	void PrimaryAttack();
+	void PrimaryAttack_TimeElapsed();
 	void PrimaryInteract();
 
 public:	

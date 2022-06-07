@@ -82,6 +82,12 @@ void AIAMCharacter::MoveRight(float AxisValue)
 
 void AIAMCharacter::PrimaryAttack()
 {
+	PlayAnimMontage(AttackAnim);
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &AIAMCharacter::PrimaryAttack_TimeElapsed, 0.2f);
+}
+
+void AIAMCharacter::PrimaryAttack_TimeElapsed()
+{
 	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
 
 	FTransform SpawnTM{ GetControlRotation(), HandLocation };
