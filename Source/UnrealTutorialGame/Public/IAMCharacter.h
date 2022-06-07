@@ -8,6 +8,7 @@
 
 class UCameraComponent;
 class USpringArmComponent;
+class UIAMInteractionComponent;
 
 UCLASS()
 class UNREALTUTORIALGAME_API AIAMCharacter : public ACharacter
@@ -28,12 +29,16 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* SpringArmComp;
 
+	UPROPERTY(VisibleAnywhere)
+	UIAMInteractionComponent* InteractionComp;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	void MoveForward(float AxisValue);
 	void MoveRight(float AxisValue);
 	void PrimaryAttack();
+	void PrimaryInteract();
 
 public:	
 	// Called every frame
