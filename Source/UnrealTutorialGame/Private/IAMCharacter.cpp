@@ -93,6 +93,7 @@ void AIAMCharacter::PrimaryAttack_TimeElapsed()
 	FTransform SpawnTM{ GetControlRotation(), HandLocation };
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	SpawnParams.Instigator = this;
 
 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 }
