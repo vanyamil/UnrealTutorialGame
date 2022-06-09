@@ -4,6 +4,7 @@
 #include "IAMExplosiveBarrel.h"
 #include <Components/StaticMeshComponent.h>
 #include <PhysicsEngine/RadialForceComponent.h>
+#include <DrawDebugHelpers.h>
 
 // Sets default values
 AIAMExplosiveBarrel::AIAMExplosiveBarrel()
@@ -32,5 +33,12 @@ void AIAMExplosiveBarrel::PostInitializeComponents()
 void AIAMExplosiveBarrel::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	ForceComp->FireImpulse();
+
+	UE_LOG(LogTemp, Log, TEXT("OnActorHir in Explosive Barrel"));
+
+	UE_LOG(LogTemp, Warning, TEXT("OtherActor: %s, at game time: %.2f"), *GetNameSafe(OtherActor), GetWorld()->TimeSeconds);
+
+	FString CombinedString = FString::Printf(TEXT("Hit at location: %s"), *Hit.ImpactPoint.ToString());
+	DrawDebugString(GetWorld(), Hit.ImpactPoint, CombinedString, nullptr, FColor::Green, 2.f, true);
 }
 
