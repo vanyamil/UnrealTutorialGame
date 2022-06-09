@@ -22,10 +22,9 @@ AIAMExplosiveBarrel::AIAMExplosiveBarrel()
 	MeshComp->SetSimulatePhysics(true);
 }
 
-// Called when the game starts or when spawned
-void AIAMExplosiveBarrel::BeginPlay()
+void AIAMExplosiveBarrel::PostInitializeComponents()
 {
-	Super::BeginPlay();
+	Super::PostInitializeComponents();
 	
 	MeshComp->OnComponentHit.AddDynamic(this, &AIAMExplosiveBarrel::OnHit);
 }

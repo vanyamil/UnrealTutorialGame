@@ -25,8 +25,7 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	URadialForceComponent* ForceComp;
 
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	virtual void PostInitializeComponents() override;
 
 	// Must be marked with UFUNCTION in order to "bind" the event
 	UFUNCTION()
