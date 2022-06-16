@@ -22,7 +22,10 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, Category = "Attack")
-	TSubclassOf<AActor> ProjectileClass;
+	TSubclassOf<AActor> PrimaryProjectileClass;
+
+	UPROPERTY(EditAnywhere, Category = "Attack")
+	TSubclassOf<AActor> SecondaryProjectileClass;
 
 	UPROPERTY(EditAnywhere, Category = "Attack")
 	UAnimMontage* AttackAnim;
@@ -37,6 +40,7 @@ protected:
 	UIAMInteractionComponent* InteractionComp;
 
 	FTimerHandle TimerHandle_PrimaryAttack;
+	FTimerHandle TimerHandle_SecondaryAttack;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -45,7 +49,12 @@ protected:
 	void MoveRight(float AxisValue);
 	void PrimaryAttack();
 	void PrimaryAttack_TimeElapsed();
+	void SecondaryAttack();
+	void SecondaryAttack_TimeElapsed();
 	void PrimaryInteract();
+
+private:
+	void SendProjectile(const TSubclassOf<AActor>& ProjectileClass);
 
 public:	
 	// Called every frame

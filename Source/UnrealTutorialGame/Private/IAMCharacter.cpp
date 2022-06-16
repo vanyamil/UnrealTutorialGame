@@ -71,6 +71,7 @@ void AIAMCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 
 	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &AIAMCharacter::PrimaryAttack);
+	PlayerInputComponent->BindAction("SecondaryAttack", IE_Pressed, this, &AIAMCharacter::SecondaryAttack);
 	PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &AIAMCharacter::PrimaryInteract);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 }
@@ -105,7 +106,29 @@ void AIAMCharacter::PrimaryAttack()
 
 void AIAMCharacter::PrimaryAttack_TimeElapsed()
 {
-	if(ensure(ProjectileClass))
+	SendProjectile(PrimaryProjectileClass);
+}
+
+void AIAMCharacter::SecondaryAttack()
+{
+	PlayAnimMontage(AttackAnim);
+	GetWorldTimerManager().SetTimer(TimerHandle_SecondaryAttack, this, &AIAMCharacter::SecondaryAttack_TimeElapsed, 0.2f);
+}
+
+void AIAMCharacter::SecondaryAttack_TimeElapsed()
+{
+	SendProjectile(SecondaryProjectileClass);
+}
+
+void AIAMCharacter::PrimaryInteract()
+{
+	// Since instanced by C++, pretty safe not to pointer guard
+	InteractionComp->PrimaryInteract();
+}
+
+void AIAMCharacter::SendProjectile(const TSubclassOf<AActor>& ProjectileClass)
+{
+	if (ensure(ProjectileClass))
 	{
 		FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
 
@@ -128,10 +151,4 @@ void AIAMCharacter::PrimaryAttack_TimeElapsed()
 
 		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 	}
-}
-
-void AIAMCharacter::PrimaryInteract()
-{
-	// Since instanced by C++, pretty safe not to pointer guard
-	InteractionComp->PrimaryInteract();
 }
