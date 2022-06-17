@@ -9,6 +9,9 @@
 #include "IAMAttributeComponent.generated.h"
 
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnHealthChanged, AActor*, Instigator, UIAMAttributeComponent*, OwningComp, float, NewHealth, float, Delta);
+
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class UNREALTUTORIALGAME_API UIAMAttributeComponent : public UActorComponent
 {
@@ -25,6 +28,10 @@ protected:
 	// Other attributes to consider: HealthMax, Stamina, Strength, CritChance
 
 public:	
+
+	UPROPERTY(BlueprintAssignable)
+	FOnHealthChanged OnHealthChanged;
+
 	UFUNCTION(BlueprintCallable, Category = "Attributes")
 	bool ApplyHealthChange(float Delta);
 };
