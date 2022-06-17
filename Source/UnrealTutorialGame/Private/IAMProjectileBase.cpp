@@ -40,7 +40,6 @@ void AIAMProjectileBase::PostInitProperties()
 
 void AIAMProjectileBase::OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	UE_LOG(LogTemp, Log, TEXT("Actor is hit"));
 	Explode();
 }
 
