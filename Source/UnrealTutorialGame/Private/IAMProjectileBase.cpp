@@ -2,10 +2,11 @@
 
 
 #include "IAMProjectileBase.h"
+
 #include <Components/SphereComponent.h>
 #include <GameFramework/ProjectileMovementComponent.h>
-#include <Particles/ParticleSystemComponent.h>
 #include <Kismet/GameplayStatics.h>
+#include <Particles/ParticleSystemComponent.h>
 
 // Sets default values
 AIAMProjectileBase::AIAMProjectileBase()

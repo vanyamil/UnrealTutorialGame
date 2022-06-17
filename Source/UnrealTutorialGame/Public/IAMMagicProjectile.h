@@ -3,8 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+
 #include "IAMProjectileBase.h"
+
+#include "GameFramework/Actor.h"
+
 #include "IAMMagicProjectile.generated.h"
 
 UCLASS()
@@ -15,4 +18,11 @@ class UNREALTUTORIALGAME_API AIAMMagicProjectile : public AIAMProjectileBase
 public:	
 	// Sets default values for this actor's properties
 	AIAMMagicProjectile();
+
+protected:
+
+	virtual void PostInitializeComponents() override;
+
+	UFUNCTION()
+	void OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 };

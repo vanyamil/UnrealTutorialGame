@@ -2,9 +2,10 @@
 
 
 #include "IAMExplosiveBarrel.h"
+
 #include <Components/StaticMeshComponent.h>
-#include <PhysicsEngine/RadialForceComponent.h>
 #include <DrawDebugHelpers.h>
+#include <PhysicsEngine/RadialForceComponent.h>
 
 // Sets default values
 AIAMExplosiveBarrel::AIAMExplosiveBarrel()

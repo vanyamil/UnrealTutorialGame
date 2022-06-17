@@ -3,12 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "GameFramework/Character.h"
+
 #include "IAMCharacter.generated.h"
 
 class UCameraComponent;
 class USpringArmComponent;
 class UIAMInteractionComponent;
+class UIAMAttributeComponent;
 class UAnimMontage;
 
 UCLASS()
@@ -38,6 +41,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	UIAMInteractionComponent* InteractionComp;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UIAMAttributeComponent* AttributeComp;
 
 	FTimerHandle TimerHandle_PrimaryAttack;
 	FTimerHandle TimerHandle_SecondaryAttack;

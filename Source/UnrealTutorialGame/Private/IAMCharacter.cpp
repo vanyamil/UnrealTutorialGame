@@ -3,6 +3,7 @@
 
 #include "IAMCharacter.h"
 #include "IAMInteractionComponent.h"
+#include "IAMAttributeComponent.h"
 
 #include <GameFramework/SpringArmComponent.h>
 #include <Camera/CameraComponent.h>
@@ -24,6 +25,7 @@ AIAMCharacter::AIAMCharacter()
 	CameraComp->SetupAttachment(SpringArmComp);
 
 	InteractionComp = CreateDefaultSubobject<UIAMInteractionComponent>("InteractionComp");
+	AttributeComp = CreateDefaultSubobject<UIAMAttributeComponent>("AttributeComp");
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 

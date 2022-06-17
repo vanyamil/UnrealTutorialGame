@@ -3,8 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+
 #include "IAMGameplayInterface.h"
+
+#include "GameFramework/Actor.h"
+
 #include "IAMTreasureChest.generated.h"
 
 class UStaticMeshComponent;
