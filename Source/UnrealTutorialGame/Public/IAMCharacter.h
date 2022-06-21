@@ -31,6 +31,9 @@ protected:
 	TSubclassOf<AActor> SecondaryProjectileClass;
 
 	UPROPERTY(EditAnywhere, Category = "Attack")
+	TSubclassOf<AActor> DashProjectileClass;
+
+	UPROPERTY(EditAnywhere, Category = "Attack")
 	UAnimMontage* AttackAnim;
 
 	UPROPERTY(VisibleAnywhere)
@@ -47,6 +50,7 @@ protected:
 
 	FTimerHandle TimerHandle_PrimaryAttack;
 	FTimerHandle TimerHandle_SecondaryAttack;
+	FTimerHandle TimerHandle_Dash;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -57,6 +61,8 @@ protected:
 	void PrimaryAttack_TimeElapsed();
 	void SecondaryAttack();
 	void SecondaryAttack_TimeElapsed();
+	void Dash();
+	void Dash_TimeElapsed();
 	void PrimaryInteract();
 
 private:

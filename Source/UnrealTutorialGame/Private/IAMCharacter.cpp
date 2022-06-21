@@ -76,6 +76,7 @@ void AIAMCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	PlayerInputComponent->BindAction("SecondaryAttack", IE_Pressed, this, &AIAMCharacter::SecondaryAttack);
 	PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &AIAMCharacter::PrimaryInteract);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
+	PlayerInputComponent->BindAction("Dash", IE_Pressed, this, &AIAMCharacter::Dash);
 }
 
 void AIAMCharacter::MoveForward(float AxisValue)
@@ -120,6 +121,17 @@ void AIAMCharacter::SecondaryAttack()
 void AIAMCharacter::SecondaryAttack_TimeElapsed()
 {
 	SendProjectile(SecondaryProjectileClass);
+}
+
+void AIAMCharacter::Dash()
+{
+	PlayAnimMontage(AttackAnim);
+	GetWorldTimerManager().SetTimer(TimerHandle_Dash, this, &AIAMCharacter::Dash_TimeElapsed, 0.2f);
+}
+
+void AIAMCharacter::Dash_TimeElapsed()
+{
+	SendProjectile(DashProjectileClass);
 }
 
 void AIAMCharacter::PrimaryInteract()

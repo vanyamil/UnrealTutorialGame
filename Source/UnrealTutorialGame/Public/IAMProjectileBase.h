@@ -45,7 +45,7 @@ protected:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void Explode();
 	// Refuses to compile without it
-	void Explode_Implementation();
+	virtual void Explode_Implementation();
 
 	virtual void PostInitializeComponents() override;
 
