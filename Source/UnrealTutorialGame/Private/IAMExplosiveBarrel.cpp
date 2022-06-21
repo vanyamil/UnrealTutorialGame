@@ -3,6 +3,8 @@
 
 #include "IAMExplosiveBarrel.h"
 
+#include "IAMAttributeComponent.h"
+
 #include <Components/StaticMeshComponent.h>
 #include <DrawDebugHelpers.h>
 #include <PhysicsEngine/RadialForceComponent.h>
@@ -34,6 +36,16 @@ void AIAMExplosiveBarrel::PostInitializeComponents()
 void AIAMExplosiveBarrel::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	ForceComp->FireImpulse();
+
+	// If an actor with health touches it, give it damage
+	if(OtherActor)
+	{
+		UIAMAttributeComponent* Attr = Cast<UIAMAttributeComponent>(OtherActor->GetComponentByClass(UIAMAttributeComponent::StaticClass()));
+		if (Attr)
+		{
+			Attr->ApplyHealthChange(-50.f);
+		}
+	}
 
 	UE_LOG(LogTemp, Log, TEXT("OnActorHir in Explosive Barrel"));
 
