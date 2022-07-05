@@ -20,7 +20,6 @@ public:
 
 protected:
 	FTimerHandle TimerHandle_Explode;
-	FTimerHandle TimerHandle_Teleport;
 
 	void Teleport();
 	void Explode_Implementation() override;
