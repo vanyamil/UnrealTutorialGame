@@ -9,6 +9,10 @@ UIAMAttributeComponent::UIAMAttributeComponent()
 	Health = 100.f;
 }
 
+bool UIAMAttributeComponent::IsAlive() const
+{
+	return Health > 0.f;
+}
 
 bool UIAMAttributeComponent::ApplyHealthChange(float Delta)
 {

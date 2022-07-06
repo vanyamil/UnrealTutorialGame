@@ -32,6 +32,13 @@ AIAMCharacter::AIAMCharacter()
 	bUseControllerRotationYaw = false;
 }
 
+void AIAMCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	AttributeComp->OnHealthChanged.AddDynamic(this, &AIAMCharacter::OnHealthChanged);
+}
+
 // Called when the game starts or when spawned
 void AIAMCharacter::BeginPlay()
 {
@@ -138,6 +145,15 @@ void AIAMCharacter::PrimaryInteract()
 {
 	// Since instanced by C++, pretty safe not to pointer guard
 	InteractionComp->PrimaryInteract();
+}
+
+void AIAMCharacter::OnHealthChanged(AActor* InstigatorActor, UIAMAttributeComponent* OwningComp, float NewHealth, float Delta)
+{
+	if (NewHealth <= 0.f && Delta < 0.f)
+	{
+		APlayerController* PC = Cast<APlayerController>(GetController());
+		DisableInput(PC);
+	}
 }
 
 void AIAMCharacter::SendProjectile(const TSubclassOf<AActor>& ProjectileClass)

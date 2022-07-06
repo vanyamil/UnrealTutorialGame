@@ -65,6 +65,11 @@ protected:
 	void Dash_TimeElapsed();
 	void PrimaryInteract();
 
+	UFUNCTION()
+	void OnHealthChanged(AActor* InstigatorActor, UIAMAttributeComponent* OwningComp, float NewHealth, float Delta);
+
+	virtual void PostInitializeComponents() override;
+
 private:
 	void SendProjectile(const TSubclassOf<AActor>& ProjectileClass);
 
