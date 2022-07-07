@@ -12,6 +12,7 @@
 AIAMProjectileBase::AIAMProjectileBase()
 {
 	SphereComp = CreateDefaultSubobject<USphereComponent>("SphereComp");
+	SphereComp->InitSphereRadius(20.f);
 	RootComponent = SphereComp;
 
 	EffectComp = CreateDefaultSubobject<UParticleSystemComponent>("ActiveEffectComp");

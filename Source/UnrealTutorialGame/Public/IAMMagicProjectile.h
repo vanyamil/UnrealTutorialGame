@@ -10,6 +10,9 @@
 
 #include "IAMMagicProjectile.generated.h"
 
+class UAudioComponent;
+class USoundBase;
+
 UCLASS()
 class UNREALTUTORIALGAME_API AIAMMagicProjectile : public AIAMProjectileBase
 {
@@ -20,8 +23,15 @@ public:
 	AIAMMagicProjectile();
 
 protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UAudioComponent* AudioComp;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	USoundBase* ImpactSFX;
 
 	virtual void PostInitializeComponents() override;
+
+	void Explode_Implementation() override;
 
 	UFUNCTION()
 	void OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);

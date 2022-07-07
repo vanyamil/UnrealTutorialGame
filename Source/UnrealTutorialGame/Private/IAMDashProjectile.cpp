@@ -41,17 +41,13 @@ void AIAMDashProjectile::Explode_Implementation()
 
 void AIAMDashProjectile::Teleport()
 {
-	UE_LOG(LogTemp, Log, TEXT("Starting teleport"));
 	AActor* Inst = GetInstigator();
 	if (ensure(Inst))
 	{
 		Inst->TeleportTo(GetActorLocation(), Inst->GetActorRotation());
 	}
 
-	if (!Destroy())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Unable to destroy"));
-	}
+	Destroy();
 }
 
 void AIAMDashProjectile::BeginPlay()

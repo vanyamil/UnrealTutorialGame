@@ -3,10 +3,13 @@
 
 #include "IAMAttributeComponent.h"
 
+#include <Math/UnrealMathUtility.h>
+
 // Sets default values for this component's properties
 UIAMAttributeComponent::UIAMAttributeComponent()
 {
-	Health = 100.f;
+	HealthMax = 100.f;
+	Health = HealthMax;
 }
 
 bool UIAMAttributeComponent::IsAlive() const
@@ -16,7 +19,9 @@ bool UIAMAttributeComponent::IsAlive() const
 
 bool UIAMAttributeComponent::ApplyHealthChange(float Delta)
 {
-	Health += Delta;
+	float NewHealth = FMath::Clamp(Health + Delta, 0.f, HealthMax);
+	Delta = NewHealth - Health;
+	Health = NewHealth;
 
 	OnHealthChanged.Broadcast(nullptr, this, Health, Delta);
 
