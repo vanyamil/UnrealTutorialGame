@@ -35,7 +35,7 @@ protected:
 	UParticleSystem* OnHitVFX;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float InitialSpeed;
+	float InitialSpeed = 1000.f;
 
 	UFUNCTION()
 	virtual void OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
@@ -44,8 +44,6 @@ protected:
 	// BlueprintCallable to allow child classes to trigger explosions
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void Explode();
-	// Refuses to compile without it
-	virtual void Explode_Implementation();
 
 	virtual void PostInitializeComponents() override;
 

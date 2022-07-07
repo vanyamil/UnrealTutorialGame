@@ -56,5 +56,7 @@ void AIAMDashProjectile::Teleport()
 
 void AIAMDashProjectile::BeginPlay()
 {
+	Super::BeginPlay();
+
 	GetWorldTimerManager().SetTimer(TimerHandle_Explode, this, &AIAMDashProjectile::Explode, 0.2f);
 }
