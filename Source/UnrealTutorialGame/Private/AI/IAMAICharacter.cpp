@@ -25,10 +25,3 @@ void AIAMAICharacter::Tick(float DeltaTime)
 
 }
 
-// Called to bind functionality to input
-void AIAMAICharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
-
