@@ -12,6 +12,8 @@ class USphereComponent;
 class UProjectileMovementComponent;
 class UParticleSystemComponent;
 
+DECLARE_LOG_CATEGORY_EXTERN(LogProjectile, Log, All);
+
 UCLASS(ABSTRACT)
 class UNREALTUTORIALGAME_API AIAMProjectileBase : public AActor
 {

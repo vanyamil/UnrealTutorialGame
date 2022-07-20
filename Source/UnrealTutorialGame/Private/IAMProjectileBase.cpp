@@ -8,6 +8,8 @@
 #include <Kismet/GameplayStatics.h>
 #include <Particles/ParticleSystemComponent.h>
 
+DEFINE_LOG_CATEGORY(LogProjectile);
+
 // Sets default values
 AIAMProjectileBase::AIAMProjectileBase()
 {
@@ -42,10 +44,10 @@ void AIAMProjectileBase::PostInitProperties()
 
 void AIAMProjectileBase::OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	UE_LOG(LogTemp, Log, TEXT("[AIAMProjectileBase::OnActorHit] Start"));
+	UE_LOG(LogProjectile, Log, TEXT("[AIAMProjectileBase::OnActorHit] Start"));
 	if (!OtherActor || OtherActor != GetInstigator()) 
 	{
-		UE_LOG(LogTemp, Log, TEXT("[AIAMProjectileBase::OnActorHit] Explode because actor isn't instigator"));
+		UE_LOG(LogProjectile, Log, TEXT("[AIAMProjectileBase::OnActorHit] Explode because actor isn't instigator"));
 		Explode();
 	}
 }
@@ -53,7 +55,7 @@ void AIAMProjectileBase::OnActorHit(UPrimitiveComponent* HitComponent, AActor* O
 // _Implementation from it being marked as BlueprintNativeEvent
 void AIAMProjectileBase::Explode_Implementation()
 {
-	UE_LOG(LogTemp, Log, TEXT("[AIAMProjectileBase::Explode_Implementation] Start"));
+	UE_LOG(LogProjectile, Log, TEXT("[AIAMProjectileBase::Explode_Implementation] Start"));
 	// Check to make sure we aren't already being 'destroyed'
 	// Adding ensure to see if we encounter this situation at all
 	if (ensure(!IsPendingKill()))

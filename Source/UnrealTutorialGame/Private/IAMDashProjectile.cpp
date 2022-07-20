@@ -18,7 +18,7 @@ AIAMDashProjectile::AIAMDashProjectile()
 
 void AIAMDashProjectile::Explode_Implementation()
 {
-	UE_LOG(LogTemp, Log, TEXT("[AIAMDashProjectile::Explode_Implementation] Start"));
+	UE_LOG(LogProjectile, Log, TEXT("[AIAMDashProjectile::Explode_Implementation] Start"));
 	// Since this can be called by parts of code from base class, remove timer that could trigger it a second time.
 	GetWorldTimerManager().ClearTimer(TimerHandle_Explode);
 
