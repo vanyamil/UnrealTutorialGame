@@ -3,6 +3,8 @@
 
 #include "AI/IAMBTService_CheckAttackRange.h"
 
+#include "Helpers/PointerHelpers.h"
+
 #include <AIController.h>
 #include <BehaviorTree/BlackboardComponent.h>
 #include <GameFramework/Actor.h>
@@ -14,26 +16,15 @@ void UIAMBTService_CheckAttackRange::TickNode(UBehaviorTreeComponent& OwnerComp,
 
 	// Check distance between AI Pawn and TargetActor
 
-	UBlackboardComponent* Blackboard = OwnerComp.GetBlackboardComponent();
-	if (ensure(Blackboard))
-	{
-		AActor* TargetActor = Cast<AActor>(Blackboard->GetValueAsObject("TargetActor"));
-		if (TargetActor) 
-		{
-			AAIController* MyController = OwnerComp.GetAIOwner();
-			if (ensure(MyController))
-			{
-				APawn* MyPawn = MyController->GetPawn();
-				if (ensure(MyPawn))
-				{
-					const float Dist = FVector::Distance(TargetActor->GetActorLocation(), MyPawn->GetActorLocation());
-					const bool bWithinRange = Dist < 2000.f;
+	EnsuredPtr(UBlackboardComponent, Blackboard, OwnerComp.GetBlackboardComponent());
+	SafePtr(AActor, TargetActor, Cast<AActor>(Blackboard->GetValueAsObject("TargetActor")));
+	EnsuredPtr(AAIController, MyController, OwnerComp.GetAIOwner());
+	EnsuredPtr(APawn, MyPawn, MyController->GetPawn());
 
-					const bool bHasLOS = bWithinRange && MyController->LineOfSightTo(TargetActor);
+	const float Dist = FVector::Distance(TargetActor->GetActorLocation(), MyPawn->GetActorLocation());
+	const bool bWithinRange = Dist < 2000.f;
 
-					Blackboard->SetValueAsBool(AttackRangeKey.SelectedKeyName, bHasLOS);
-				}
-			}
-		}
-	}
+	const bool bHasLOS = bWithinRange && MyController->LineOfSightTo(TargetActor);
+
+	Blackboard->SetValueAsBool(AttackRangeKey.SelectedKeyName, bHasLOS);
 }

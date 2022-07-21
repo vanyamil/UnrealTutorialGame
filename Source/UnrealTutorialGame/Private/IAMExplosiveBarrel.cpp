@@ -3,6 +3,7 @@
 
 #include "IAMExplosiveBarrel.h"
 
+#include "Helpers/PointerHelpers.h"
 #include "IAMAttributeComponent.h"
 
 #include <Components/StaticMeshComponent.h>
@@ -37,17 +38,14 @@ void AIAMExplosiveBarrel::OnHit(UPrimitiveComponent* HitComponent, AActor* Other
 {
 	ForceComp->FireImpulse();
 
+	FString CombinedString = FString::Printf(TEXT("Hit at location: %s"), *Hit.ImpactPoint.ToString());
+	DrawDebugString(GetWorld(), Hit.ImpactPoint, CombinedString, nullptr, FColor::Green, 2.f, true);
+
 	// If an actor with health touches it, give it damage
 	if(OtherActor)
 	{
-		UIAMAttributeComponent* Attr = Cast<UIAMAttributeComponent>(OtherActor->GetComponentByClass(UIAMAttributeComponent::StaticClass()));
-		if (Attr)
-		{
-			Attr->ApplyHealthChange(-50.f);
-		}
+		SafePtr(UIAMAttributeComponent, Attr, Cast<UIAMAttributeComponent>(OtherActor->GetComponentByClass(UIAMAttributeComponent::StaticClass())));
+		Attr->ApplyHealthChange(-50.f);
 	}
-
-	FString CombinedString = FString::Printf(TEXT("Hit at location: %s"), *Hit.ImpactPoint.ToString());
-	DrawDebugString(GetWorld(), Hit.ImpactPoint, CombinedString, nullptr, FColor::Green, 2.f, true);
 }
 

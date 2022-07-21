@@ -3,6 +3,7 @@
 
 #include "IAMMagicProjectile.h"
 
+#include "Helpers/PointerHelpers.h"
 #include "IAMAttributeComponent.h"
 
 #include <Components/AudioComponent.h>
@@ -39,13 +40,9 @@ void AIAMMagicProjectile::OnActorOverlap(UPrimitiveComponent* OverlappedComponen
 {
 	if (OtherActor && OtherActor != GetInstigator())
 	{
-		UIAMAttributeComponent* AttributeComp = Cast<UIAMAttributeComponent>(OtherActor->GetComponentByClass(UIAMAttributeComponent::StaticClass()));
-		if (AttributeComp)
-		{
-			AttributeComp->ApplyHealthChange(-20.f);
-
-			Explode();
-		}
+		SafePtr(UIAMAttributeComponent, AttributeComp, Cast<UIAMAttributeComponent>(OtherActor->GetComponentByClass(UIAMAttributeComponent::StaticClass())));
+		AttributeComp->ApplyHealthChange(-20.f);
+		Explode();
 	}
 }
 

@@ -2,6 +2,7 @@
 
 
 #include "IAMCharacter.h"
+
 #include "IAMInteractionComponent.h"
 #include "IAMAttributeComponent.h"
 

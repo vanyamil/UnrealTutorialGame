@@ -16,21 +16,6 @@ AIAMTreasureChest::AIAMTreasureChest()
 	LidMesh->SetupAttachment(BaseMesh);
 
 	TargetPitch = 110;
-
-}
-
-// Called when the game starts or when spawned
-void AIAMTreasureChest::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
-// Called every frame
-void AIAMTreasureChest::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
 }
 
 void AIAMTreasureChest::Interact_Implementation(APawn* InstigatorPawn)
