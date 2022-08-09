@@ -6,21 +6,22 @@
 #include "GameFramework/Character.h"
 #include "IAMAICharacter.generated.h"
 
+class UPawnSensingComponent;
+
 UCLASS()
 class UNREALTUTORIALGAME_API AIAMAICharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	AIAMAICharacter();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	virtual void PostInitializeComponents() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(VisibleAnywhere, Category="Components")
+	UPawnSensingComponent* SenseComp;
 
+	UFUNCTION()
+	void OnPawnSeen(APawn* Pawn);
 };

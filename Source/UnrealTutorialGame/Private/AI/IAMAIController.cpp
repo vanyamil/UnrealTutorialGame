@@ -13,10 +13,4 @@ void AIAMAIController::BeginPlay()
 	Super::BeginPlay();
 
 	RunBehaviorTree(BehaviorTree);
-
-	// Eventually - pawn sensing
-	SafePtr(APawn, MyPawn, UGameplayStatics::GetPlayerPawn(this, 0));
-
-	//GetBlackboardComponent()->SetValueAsVector("MoveToLocation", MyPawn->GetActorLocation());
-	GetBlackboardComponent()->SetValueAsObject("TargetActor", MyPawn);
 }
